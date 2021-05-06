@@ -22,9 +22,12 @@ RUN pip install -r requirements.txt
 # copy project
 COPY . .
 
+RUN python manage.py collectstatic --noinput
+
+
 # add and run as non-root user
 RUN adduser -D app
 USER app
 
 # run gunicorn
-CMD gunicorn hello_django.wsgi:application --bind 0.0.0.0:$PORT
+CMD gunicorn cocktails.wsgi:application --bind 0.0.0.0:$PORT
