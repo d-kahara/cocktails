@@ -19,21 +19,31 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 SECRET_KEY = os.environ.get('SECRET_KEY', default='y#1n9d=jad+*0gil&fu3ikd4&g@__#kojk(4z@7_#kdgszl&4m')
 
-DEBUG = int(os.environ.get('DEBUG', default=0))
+DEBUG = os.environ.get('DJANGO_DEBUG', default=True)
 
 ALLOWED_HOSTS = ['localhost', '127.0.0.1', 'cocktails-dev-api.herokuapp.com']
 
 
 # Application definition
 
-INSTALLED_APPS = [
+DJANGO_APPS = (
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-]
+)
+
+THIRD_PARTY_APPS = (
+    'rest_framework',
+)
+
+LOCAL_APPS = (
+    'api',
+)
+
+INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + LOCAL_APPS
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -72,10 +82,11 @@ WSGI_APPLICATION = 'cocktails.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql',
         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
     }
 }
+
 
 DATABASE_URL = os.environ.get('DATABASE_URL')
 db_from_env = dj_database_url.config(default=DATABASE_URL, conn_max_age=500, ssl_require=True)
