@@ -1,11 +1,13 @@
 import requests
 from rest_framework import status
+from rest_framework.generics import (CreateAPIView, ListAPIView,
+                                     RetrieveUpdateDestroyAPIView)
 from rest_framework.response import Response
 from rest_framework.views import APIView
-from rest_framework.generics import CreateAPIView, RetrieveUpdateDestroyAPIView
 
-from .serializers import CocktailSerializer
 from .models import Cocktail
+from .serializers import CocktailSerializer
+
 
 class RandomCocktailView(APIView):
     """This endpoint returns a list of five random cocktails fetched from TheCocktailDB API
@@ -32,8 +34,17 @@ class CocktailDetailView(RetrieveUpdateDestroyAPIView):
     queryset = Cocktail.objects.all()
 
 class CustomCocktailCreateView(CreateAPIView):
+    """This endpoint creates a new custom Cocktail
+    """
     def post(self, request):
             serializer = CocktailSerializer(data=request.data)
             serializer.is_valid(raise_exception=True)
             serializer.save()
-            return Response(serializer.data,status=status.HTTP_201_CREATED)
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+
+
+class FetchRecentCocktails(ListAPIView):
+    """This endpoint is used to fetch the 5 most recently created cocktails
+    """
+    serializer_class = CocktailSerializer
+    queryset = Cocktail.objects.all().order_by('-id')[:5]
