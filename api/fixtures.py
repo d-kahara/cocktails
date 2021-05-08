@@ -1,0 +1,60 @@
+import pytest
+
+from api.models import Cocktail
+
+
+@pytest.fixture(scope='function')
+def new_cocktail():
+    params = {
+    "idDrink": "12345",
+    "strDrink": "Konyagi",
+    "strDrinkAlternate": "spirit of Africa",
+    "strTags": "spirit",
+    "strVideo": "",
+    "strIBA": "",
+    "strAlcoholic": "Akoho",
+    "strGlass": "tumbler ya mejja",
+    "strInstructions": "",
+    "strInstructionsES": "",
+    "strInstructionsDE": "",
+    "strInstructionsFR": "",
+    "strInstructionsIT": "",
+    "strInstructionsZH_HANS": "",
+    "strInstructionsZH_HANT": "",
+    "strDrinkThumb": "",
+    "strIngredient1": "",
+    "strIngredient2": "",
+    "strIngredient3": "",
+    "strIngredient4": "",
+    "strIngredient5": "",
+    "strIngredient6": "",
+    "strIngredient7": "",
+    "strIngredient8": "",
+    "strIngredient9": "",
+    "strIngredient10": "",
+    "strIngredient11": "",
+    "strIngredient12": "",
+    "strIngredient13": "",
+    "strIngredient14": "",
+    "strIngredient15": "",
+    "strMeasure1": "",
+    "strMeasure2": "",
+    "strMeasure3": "",
+    "strMeasure4": "",
+    "strMeasure5": "",
+    "strMeasure6": "",
+    "strMeasure7": "",
+    "strMeasure8": "",
+    "strMeasure9": "",
+    "strMeasure10": "",
+    "strMeasure11": "",
+    "strMeasure12": "",
+    "strMeasure13": "",
+    "strMeasure14": "",
+    "strMeasure15": "",
+    "strImageSource": "",
+    "strImageAttribution": "",
+    "strCreativeCommonsConfirmed": "",
+    "dateModified": "2021-05-8 12:51:53"
+}
+    return Cocktail(**params)
